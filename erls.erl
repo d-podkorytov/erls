@@ -14,7 +14,7 @@
 -description("Erlang methainterpretator (C) 2012, Dmitry Podkorytov").
 -author("Dmitry Podkorytov").
 
--export([exec/1,inform_deny/1,test_l/0,test_p/0,test_d/0,scan/1,trace/1,trace/2,parse/1]).
+-export([file/1,exec/1,inform_deny/1,test_l/0,test_p/0,test_d/0,scan/1,trace/1,trace/2,parse/1]).
 -export([tests/0,test_t/0]).
 -export([term_to_str/1,parse/1]).
 
@@ -61,13 +61,17 @@ filter_parsed_node(Denied)->io:format("==--> local calls is anyway denied, need 
 
 exec(Cmd) ->
     Scaned=filter_scans(scan(Cmd)),
-
+    io:format("~p:~p Scaned=~p ~n",[?MODULE,?LINE,Scaned]),
     Parsed=filter_parsing(parse(Scaned),log_all),
-
+    io:format("~p:~p Parsed=~p ~n",[?MODULE,?LINE,Parsed]),
     case eval(Parsed) of
         {error, _} -> {error,Cmd}; %% This should be an external call
         Term -> Term
     end.
+
+file(Name)->
+ {ok,Txt} = file:read_file(Name),
+ exec(unicode:characters_to_list(Txt)).
 
 scan(Cmd) -> erl_scan:string(Cmd).
 
