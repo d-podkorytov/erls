@@ -1,4 +1,4 @@
-ERLANG SCRIPT with restricting calls by rules
+# ERLANG SCRIPT with restricting calls by rules
 ===========================================================
 
 It was a long time ago, Im only starting ERLANG using, 
@@ -14,7 +14,5 @@ Any system function can be called inside script usually it
 great, but sometime it can be danger by security reason.
 
 And I joing to it option for filtration functions calls and allow it by rules.
-
-
 
 Dmitry Podkorytov
